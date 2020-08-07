@@ -29,3 +29,20 @@ The Pytorch implementation is [DBNet](https://github.com/BaofengZan/DBNet.pytorc
 ## linux版本
 
 https://github.com/wang-xinyu/tensorrtx
+
+
+
+## 不足
+
+* 1 common文件中，下面两个函数可以合并，自己偷了个懒。
+
+```c++
+ILayer* convBnLeaky(INetworkDefinition *network, std::map<std::string, Weights>& weightMap, ITensor& input, int outch, int ksize, int s, int g, std::string lname, bool bias = true) 
+```
+
+```c++
+ILayer* convBnLeaky2(INetworkDefinition *network, std::map<std::string, Weights>& weightMap, ITensor& input, int outch, int ksize, int s, int g, std::string lname, bool bias = true)
+```
+
+* 2 后处理中与pytorch版本也有好多不同之处，这都是可以改进提升的。
+* 3 在pyorch中数据预处理是将图像短边resize到1024，长边按比例缩放，最后将新的宽高截到32的倍数。而在自己的repo中直接将图像resize到640*640，较为粗暴。
