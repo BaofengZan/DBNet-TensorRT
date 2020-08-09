@@ -24,7 +24,7 @@ The Pytorch implementation is [DBNet](https://github.com/BaofengZan/DBNet.pytorc
   ./dbnet -d  ../samples // deserialize plan file and run inference, the images in samples will be processed.
   ```
 
-  ![image-20200807183412846](imgs/image-20200807183412846.png)
+  ![image-20200807183412846](https://user-images.githubusercontent.com/20653176/89722330-00c36900-da1b-11ea-97f4-c61f9cd196fa.png)
 
 ## linux版本
 
