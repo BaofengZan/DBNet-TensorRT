@@ -13,16 +13,7 @@ The Pytorch implementation is [DBNet](https://github.com/BaofengZan/DBNet.pytorc
 
   同时也可以导出onnx。将onnx属性设置为True即可。
 
-* 2 cmake 生成工程
-
-  ```
-  mkdir build
-  cd build
-  cmake ..
-  make
-  ./dbnet -s             // serialize model to plan file i.e. 'DBNet.engine'
-  ./dbnet -d  ../samples // deserialize plan file and run inference, the images in samples will be processed.
-  ```
+* 2 cmake 生成VS工程，然后编译，运行。main函数中传入不同的参数，有不同的作用。 -s为生成engin文件。 -d imgpath 代表运行前向。
 
   ![image-20200807183412846](https://user-images.githubusercontent.com/20653176/89722330-00c36900-da1b-11ea-97f4-c61f9cd196fa.png)
 
