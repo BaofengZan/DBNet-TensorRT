@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required(VERSION 2.6)
 
-project(yolov5)
+project(dbnet)
 
 add_definitions(-std=c++11)
 
