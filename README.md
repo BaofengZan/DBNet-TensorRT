@@ -1,5 +1,9 @@
 # DBNet
 
+<a href="/README-en.md" >
+  <img align="right"  height="80" src="https://user-images.githubusercontent.com/22770735/92985445-2804ce80-f4d0-11ea-9c38-62152842d58b.png" />
+</a>
+
 The Pytorch implementation is [DBNet](https://github.com/BaofengZan/DBNet.pytorch).
 
 ## How to Run
