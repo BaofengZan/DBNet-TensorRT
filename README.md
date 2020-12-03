@@ -1,9 +1,5 @@
 # DBNet
 
-<a href="/README-en.md" >
-  <img align="right"  height="80" src="https://user-images.githubusercontent.com/22770735/92985445-2804ce80-f4d0-11ea-9c38-62152842d58b.png" />
-</a>
-
 The Pytorch implementation is [DBNet](https://github.com/BaofengZan/DBNet.pytorch).
 
 ## How to Run
@@ -19,7 +15,9 @@ The Pytorch implementation is [DBNet](https://github.com/BaofengZan/DBNet.pytorc
 
 * 2 cmake 生成VS工程，然后编译，运行。main函数中传入不同的参数，有不同的作用。 -s为生成engin文件。 -d imgpath 代表运行前向。
 
-  ![image-20200807183412846](https://user-images.githubusercontent.com/20653176/89722330-00c36900-da1b-11ea-97f4-c61f9cd196fa.png)
+  <p align="center">
+  <img src="https://user-images.githubusercontent.com/20653176/100968101-b044be00-356b-11eb-808c-9597cbe1f8de.jpg">
+  </p>
 
 ## linux版本
 
@@ -40,4 +38,4 @@ ILayer* convBnLeaky2(INetworkDefinition *network, std::map<std::string, Weights>
 ```
 
 * 2 后处理中与pytorch版本也有好多不同之处，这都是可以改进提升的。
-* 3 在pyorch中数据预处理是将图像短边resize到1024，长边按比例缩放，最后将新的宽高截到32的倍数。而在自己的repo中直接将图像resize到640*640，较为粗暴。
+* 3 ~~在pyorch中数据预处理是将图像短边resize到1024，长边按比例缩放，最后将新的宽高截到32的倍数。而在自己的repo中直接将图像resize到640*640，较为粗暴。~~
