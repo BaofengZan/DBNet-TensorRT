@@ -27,7 +27,7 @@ https://github.com/wang-xinyu/tensorrtx
 
 ## 不足
 
-* 1 common文件中，下面两个函数可以合并，自己偷了个懒。
+* ~~1 common文件中，下面两个函数可以合并，自己偷了个懒。~~
 
 ```c++
 ILayer* convBnLeaky(INetworkDefinition *network, std::map<std::string, Weights>& weightMap, ITensor& input, int outch, int ksize, int s, int g, std::string lname, bool bias = true) 

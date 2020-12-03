@@ -97,51 +97,29 @@ IScaleLayer* addBatchNorm2d(INetworkDefinition *network, std::map<std::string, W
     return scale_1;
 }
 
-ILayer* convBnLeaky(INetworkDefinition *network, std::map<std::string, Weights>& weightMap, ITensor& input, int outch, int ksize, int s, int g, std::string lname, bool bias = true) {
+ILayer* convBnLeaky(INetworkDefinition *network, std::map<std::string, Weights>& weightMap, ITensor& input, int outch, int ksize, int s, int g, std::string lname, std::string bnname, bool bias = true) {
 	Weights emptywts{DataType::kFLOAT, nullptr, 0};
 	int p = ksize / 2;
 	IConvolutionLayer* conv1 = nullptr;
 	if (bias)
 	{
-		conv1 = network->addConvolutionNd(input, outch, DimsHW{ ksize, ksize }, weightMap[lname + ".conv.weight"], weightMap[lname + ".conv.bias"]);
+		conv1 = network->addConvolutionNd(input, outch, DimsHW{ ksize, ksize }, weightMap[lname + ".weight"], weightMap[lname + ".bias"]);
 	}
 	else
 	{
-		conv1 = network->addConvolutionNd(input, outch, DimsHW{ ksize, ksize }, weightMap[lname + ".conv.weight"], emptywts);
+		conv1 = network->addConvolutionNd(input, outch, DimsHW{ ksize, ksize }, weightMap[lname + ".weight"], emptywts);
 	}
     assert(conv1);
     conv1->setStrideNd(DimsHW{s, s});
     conv1->setPaddingNd(DimsHW{p, p});
     conv1->setNbGroups(g);
 	//IScaleLayer* bn1 = addBatchNorm2d(network, weightMap, *conv1->getOutput(0), lname + ".bn", 1e-4);
-	IScaleLayer* bn1 = addBatchNorm2d(network, weightMap, *conv1->getOutput(0), lname + ".bn", 1e-3);
+    IScaleLayer* bn1 = addBatchNorm2d(network, weightMap, *conv1->getOutput(0), lname.substr(0, lname.find_last_of(".")) + bnname, 1e-3);
     auto lr = network->addActivation(*bn1->getOutput(0), ActivationType::kLEAKY_RELU);
     lr->setAlpha(0.1);
     return lr;
 }
 
-ILayer* convBnLeaky2(INetworkDefinition *network, std::map<std::string, Weights>& weightMap, ITensor& input, int outch, int ksize, int s, int g, std::string lname, bool bias = true) {
-	Weights emptywts{DataType::kFLOAT, nullptr, 0};
-	int p = ksize / 2;
-	IConvolutionLayer* conv1 = nullptr;
-	if (bias)
-	{
-		conv1 = network->addConvolutionNd(input, outch, DimsHW{ ksize, ksize }, weightMap[lname + ".0.weight"], weightMap[lname + ".0.bias"]);
-	}
-	else
-	{
-		conv1 = network->addConvolutionNd(input, outch, DimsHW{ ksize, ksize }, weightMap[lname + ".0.weight"], emptywts);
-	}
-	assert(conv1);
-	conv1->setStrideNd(DimsHW{ s, s });
-	conv1->setPaddingNd(DimsHW{ p, p });
-	conv1->setNbGroups(g);
-	//IScaleLayer* bn1 = addBatchNorm2d(network, weightMap, *conv1->getOutput(0), lname + ".bn", 1e-4);
-	IScaleLayer* bn1 = addBatchNorm2d(network, weightMap, *conv1->getOutput(0), lname + ".1", 1e-3);
-	auto lr = network->addActivation(*bn1->getOutput(0), ActivationType::kLEAKY_RELU);
-	lr->setAlpha(0.1);
-	return lr;
-}
 
 IActivationLayer* basicBlock(INetworkDefinition *network, std::map<std::string, Weights>& weightMap, ITensor& input, int inch, int outch, int stride, std::string lname) {
 	Weights emptywts{ DataType::kFLOAT, nullptr, 0 };
